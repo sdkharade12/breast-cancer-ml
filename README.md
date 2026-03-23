@@ -61,21 +61,57 @@ The dataset is loaded programmatically using `sklearn.datasets`, so no external 
 
 ### 3️⃣ Model Training
 
-* **Model**: Logistic Regression
-* **Why Logistic Regression?**
+Multiple classification algorithms were initially evaluated:
 
-  * Interpretable
-  * Stable
-  * Well-suited for medical risk prediction
-* Model artifacts saved:
+* Logistic Regression
+* Naive Bayes
+* K-Nearest Neighbors (KNN)
+* Support Vector Machine (SVM)
 
-  * Trained model
-  * Scaler
-  * Selected feature list
+Models were compared using:
+
+* **Accuracy**
+* **F1 Score**
+
+**Logistic Regression** achieved the best overall performance and was selected as the final model due to its stability and interpretability.
+
+Model artifacts saved:
+
+* Trained model
+* Scaler
+* Selected feature list
 
 ---
 
-### 4️⃣ Inference
+### 4️⃣ Cross Validation
+
+To ensure the model generalizes well, **5-Fold Cross Validation** was applied to the selected Logistic Regression model.
+
+This process:
+
+* Splits the training data into 5 folds
+* Trains the model on different subsets
+* Evaluates performance across multiple runs
+
+Cross validation helps verify that the model is **stable and not overfitting to a single data split**.
+
+---
+
+### 5️⃣ Hyperparameter Tuning
+
+To further optimize the model, **GridSearchCV** was used to tune key Logistic Regression parameters.
+
+Parameters tuned include:
+
+* **C** (regularization strength)
+* **penalty** (L1 / L2 regularization)
+* **solver**
+
+Grid search combined with cross-validation automatically selected the **best performing configuration**, improving model robustness.
+
+---
+
+### 6️⃣ Inference
 
 * A single inference module handles:
 
@@ -84,6 +120,18 @@ The dataset is loaded programmatically using `sklearn.datasets`, so no external 
   * Prediction
   * Probability estimation
 * Prevents feature mismatch errors and logic duplication
+
+---
+
+## 📈 Model Performance
+
+| Metric                    | Score |
+| ------------------------- | ----- |
+| Accuracy                  | ~98%  |
+| F1 Score                  | ~0.98 |
+| Cross-Validation Accuracy | ~95%  |
+
+These results demonstrate that a well-engineered logistic regression model can achieve **high predictive performance while remaining interpretable**.
 
 ---
 
@@ -97,6 +145,18 @@ The Streamlit app provides:
 * Graceful input validation and error handling
 
 The UI is intentionally kept **lightweight**, while all ML logic resides in the backend pipeline.
+
+---
+
+## 🛠 Tech Stack
+
+* **Python**
+* **Scikit-learn**
+* **Pandas**
+* **NumPy**
+* **Streamlit**
+* **Joblib**
+* **Git & GitHub**
 
 ---
 
@@ -116,8 +176,8 @@ breast-cancer-ml/
 │
 ├── models/
 │   ├── reduced_LR_model.pkl
-│   ├── reduced_scaler_LR.pkl
-│   └── reduced_columns_LR.pkl
+│   ├── reduced_LR_scaler.pkl
+│   └── reduced_LR_columns.pkl
 │
 ├── app/
 │   └── streamlit_app.py
@@ -161,7 +221,6 @@ streamlit run app/streamlit_app.py
 ## 🚀 Future Improvements
 
 * Add model explainability using **SHAP**
-* Experiment with regularization tuning
 * Extend to multi-model comparison dashboard
 * Deploy as a cloud-based application
 
@@ -176,15 +235,3 @@ streamlit run app/streamlit_app.py
 
 ---
 
-## 👤 Author
-
-**Sarthak Kharade**
-CSE (AIML) Undergraduate | Aspiring Machine Learning Engineer
-
----
-
-## ⭐ Acknowledgements
-
-* Scikit-learn
-* Streamlit
-* Breast Cancer Wisconsin Dataset
