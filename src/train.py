@@ -31,8 +31,8 @@ def train():
 
     # Save artifacts
     joblib.dump(model, "models/reduced_LR_model.pkl")
-    joblib.dump(scaler, 'models/reduced_LR_scaler.pkl')
-    joblib.dump(top_features, 'models/reduced_LR_columns.pkl')
+    joblib.dump(scaler, 'models/reduced_scaler_LR.pkl')
+    joblib.dump(top_features, 'models/reduced_columns_LR.pkl')
 
     print("Training complete. Model, scaler and columns saved.")
 

@@ -2,8 +2,8 @@ import joblib
 import pandas as pd
 
 model = joblib.load('models/reduced_LR_model.pkl')
-scaler = joblib.load('models/reduced_LR_scaler.pkl')
-expected_columns = joblib.load('models/reduced_LR_columns.pkl')
+scaler = joblib.load('models/reduced_scaler_LR.pkl')
+expected_columns = joblib.load('models/reduced_columns_LR.pkl')
 
 def predict(input_df):
     input_df = input_df[expected_columns]
